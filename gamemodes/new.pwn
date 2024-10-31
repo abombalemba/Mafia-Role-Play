@@ -3749,11 +3749,12 @@ static stock ProxDetector(playerid,Float:radius,str[],color1,color2,color3,color
 		if(GetPlayerVirtualWorld(playerid) == GetPlayerVirtualWorld(i)) {
 			new Float:position = GetPlayerDistanceFromPoint(i,X,Y,Z);
 			if(position>radius) continue;
-  			if(position<(radius/5)*1) SCM(i,color1,str);
-			else if(position<(radius/5)*2) SCM(i,color2,str);
-			else if(position<(radius/5)*3) SCM(i,color3,str);
-			else if(position<(radius/5)*4) SCM(i,color4,str);
-			else if(position<(radius/5)*5) SCM(i,color5,str);
+			new Float:r = radius / 5;
+  			if(position<r*1) SCM(i,color1,str);
+			else if(position<r*2) SCM(i,color2,str);
+			else if(position<r*3) SCM(i,color3,str);
+			else if(position<r*4) SCM(i,color4,str);
+			else if(position<r*5) SCM(i,color5,str);
 		}
 	}
 	return 1;
