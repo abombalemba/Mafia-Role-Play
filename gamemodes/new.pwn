@@ -202,6 +202,7 @@
 // leader
 #define PlayerNotInYourOrg                                                      !"[{EF2E2E}Ошибка{FFFFFF}] Игрок не состоит в Вашей организации!"
 #define PlayerNotWorking                                                        !"[{EF2E2E}Ошибка{FFFFFF}] Игрок не на службе!"
+#define PlayerIsSuperior                                                        !"[{EF2E2E}Ошибка{FFFFFF}] Игрок должен быть ниже Вас в должности!"
 
 // functions
 #define SCM                                              			            SendClientMessage
@@ -5084,7 +5085,7 @@ CMD:uninvite(playerid,params[]) {
 	if(sscanf(params,"us[32]",params[0],params[1])) return SCM(playerid,WHITE,"[{EF2E2E}Ошибка{FFFFFF}] Используйте: /uninvite [ID] [причина]");
 	if(!IsPlayerConnected(params[0])) return SCM(playerid,WHITE,PlayerOffline);
 	if(playerVariable[params[0]][pLogged]==false) return SCM(playerid,WHITE,PlayerNotAuthorized);
-	if(playerVariable[params[0]][pOrgID]!=playerVariable[playerid][pOrgID]) return SCM(playerid,WHITE,"[{EF2E2E}Ошибка{FFFFFF}] Игрок не состоит в вашей оргнизации!");
+	if(playerVariable[params[0]][pOrgID]!=playerVariable[playerid][pOrgID]) return SCM(playerid,WHITE,PlayerNotInOrg);
 	if(playerVariable[params[0]][pOrgRank]>=playerVariable[playerid][pOrgRank]) return SCM(playerid,WHITE,CantUseOnThisPlayer);
 	
 	playerVariable[params[0]][pOrgID]=0;
@@ -5106,7 +5107,7 @@ CMD:offuninvite(playerid,params[]) {
 	if(playerVariable[playerid][pOrgRank]!=10) return SCM(playerid,WHITE,NotAccess);
 	if(sscanf(params,"s[32]s[32]",params[0],params[1])) { format(string,sizeof(string),"%s Используйте: [ник] [причина]"); return SCM(playerid,WHITE,string); }
 
-	format(string,sizeof(string),"%s %s[%i] уволил %s из организации удаленно. Причина: %s.",orgRanks[playerVariable[playerid][pOrgID]][playerVariable[playerid][pOrgRank]],
+	format(string,sizeof(string),"%s %s[%i] уволил(а) %s из организации удаленно. Причина: %s.",orgRanks[playerVariable[playerid][pOrgID]][playerVariable[playerid][pOrgRank]],
 	playerVariable[playerid][pName],playerid,params[0],params[1]);
 	SendAdminChat(playerid,WHITE,string);
 	SendOrgChat(playerVariable[playerid][pOrgID],WHITE,string);
@@ -5122,7 +5123,7 @@ CMD:fwarn(playerid,params[]) {
 	if(playerVariable[params[0]][pLogged]==false) return SCM(playerid,WHITE,PlayerNotAuthorized);
 	
 	++playerVariable[params[0]][pOrgReprimands];
-	format(string,sizeof(string),"%s %s[%i] выдал выговор %s[%i]. Причина: %s");
+	format(string,sizeof(string),"%s %s[%i] выдал(а) выговор %s[%i]. Причина: %s");
 	SendOrgChat(playerVariable[playerid][pOrgID],WHITE,string);
 	
 	if(playerVariable[params[0]][pOrgReprimands]==3) {
@@ -5130,7 +5131,7 @@ CMD:fwarn(playerid,params[]) {
 		playerVariable[params[0]][pOrgRank] = 0;
 		playerVariable[params[0]][pOrgReprimands] = 0;
 		
-		format(string,sizeof(string),"%s %s[%i] уволил %s[%i] из организации. Причина: 3/3 выговора",
+		format(string,sizeof(string),"%s %s[%i] уволил(а) %s[%i] из организации. Причина: 3/3 выговора",
 		//organizationVariable[playerVariable[params[0][pOrgID]][oRankName][playerVariable[params[0]][pOrgRank]],
 		playerVariable[playerid][pName],playerid,playerVariable[params[0]][pName],params[0]);
 		SendOrgChat(playerVariable[playerid][pOrgID],WHITE,string);
@@ -5142,6 +5143,25 @@ CMD:fwarn(playerid,params[]) {
 ////////////////////////////////////////////////////////////////////////////////
 
 CMD:unfwarn(playerid,params[]) {
+	if(playerVariable[playerid][pLogged]==false) return SCM(playerid,WHITE,NotAuthorized);
+	if(playerVariable[playerid][pOrgID]==0) return SCM(playerid,WHITE,NotInOrg);
+	if(playerVariable[playerid][pOrgRank]<8) return SCM(playerid,WHITE,NotAccess);
+	if(sscanf(params,"us[32]",params[0],params[1])) { format(string,sizeof(string),"%s Используйте: /fwarn [ID] [причина]"); return SCM(playerid,WHITE,string); }
+	if(!IsPlayerConnected(params[0])) return SCM(playerid,WHITE,PlayerOffline);
+	if(playerVariable[params[0]][pLogged]==false) return SCM(playerid,WHITE,PlayerNotAuthorized);
+	if(playerVariable[playerid][pOrgID]!=playerVariable[params[0]][pOrgID]) return SCM(playerid,WHITE,PlayerNotInOrg);
+	if(playerVariable[playerid][pOrgRank]<=playerVariable[params[0]][pOrgRank]) return SCM(playerid,WHITE,PlayerIsSuperior);
+	
+	if(playerVariable[params[0]][pOrgReprimands]==0) {
+		format(string,sizeof(string),"У %s[%i] отсутствуют выговоры!",playerVariable[params[0]][pName],params[0]);
+	    SCM(playerid,WHITE,string);
+		return 1;
+	} else {
+		--playerVariable[params[0]][pOrgReprimands];
+		format(string,sizeof(string),"%s %s[%i] снял выговор %s[%i]. Причина: %s",playerVariable[playerid][pName],
+		orgRanks[playerVariable[playerid][pOrgID]][playerVariable[playerid][pOrgRank]],playerid,playerVariable[params[0]][pName],params[0],params[1]);
+		SendOrgChat(playerVariable[playerid][pOrgID],WHITE,string);
+	}
 	return 1;
 }
 
