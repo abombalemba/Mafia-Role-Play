@@ -1,0 +1,39 @@
+Operating System Files
+.DS_Store
+Thumbs.db
+
+# Compiled Pawn Files
+*.amx
+
+# Logs
+*.log
+
+# Temporary/Pawn IDE files
+*.pwn~
+*.pwn.bak
+*.pwn.swp
+
+# SA-MP Server Files
+game.log
+*.cfg
+*.ini
+
+# Cache files
+cache/
+temp/
+
+# Backup Files
+*.bak
+*.old
+*.orig
+
+# User-specific ignore files
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+*.swp
+*~
+
+# Directory for compiled plugin binaries (if applicable)
+bin/

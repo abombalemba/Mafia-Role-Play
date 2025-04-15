@@ -1,0 +1,42 @@
+Организации
+
+0 - None / Отсутствует
+1 - Government / Правительство
+2 - FBI / ФБР
+3 - Police Departament / Полицейский департамент 
+4 - National Army / Национальная армия 
+5 - Central Hospital / Центральная больница 
+6 - News Agency / Новостное агенство 
+7 - Driveschool / Автошкола
+8 - Mafia1
+9 - Mafia2
+10 - Mafia3
+11 - Mafia4
+12 - Mafia5
+
+
+Работы
+
+0 - None / Отсутствует
+1 - Bus / Водитель автобуса
+2 - Taxi / Таксист
+3 - Trasher / Водитель мусоровоза
+4 - Mechanic / Механик
+5 - Hot-dogger / Продавец хот-доггов
+6 - Road cleaner /  
+7 - Pizzaboy / Курьер
+8 - Food deliver / Развозчик продуктов
+9 - Road fixer / 
+10 - Truck / Дальнобойщик
+11 - Fireman / Пожарник
+12 - Collector / Инкассатор
+
+
+Подработки
+
+0 - None / Отсутствует 
+1 - Loader / Грузчик
+2 - Miner / Шахтер
+3 - Builder / Строитель
+4 - Farmer / Фермер
+5 - Factory worker / Работник завода

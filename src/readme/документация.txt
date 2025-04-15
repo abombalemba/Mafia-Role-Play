@@ -1,0 +1,24 @@
+func SendAdminChat  - отправляет сбщ в админ-чат
+
+
+служебные
+LoggingAdminAction ()
+	playerid - ид админа
+	action[] - событие
+	command[] - команда
+	victimID - ид наказуемого
+	victimNickName[] - ник наказуемого
+	punishTime - время наказания
+	punishReason[] - причина наказния
+
+logs_admin
+	ID					(int, unsigned, AI)
+	Date					(varchar16)
+	AdminID					(int, unsigned)
+	AdminNickName				(varchar24)
+	Action					(varchar128)
+	Command					(varchar16)
+	VictimID = 0				(int, unsigned)
+	VictimNickName = ""				(varchar24)
+	PunishTime = 0				(int, unsigned)
+	PunishReason = ""				(varchar128)

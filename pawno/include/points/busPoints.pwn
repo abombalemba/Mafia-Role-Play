@@ -1,1 +1,0 @@
-static const stock Float:busPoints[][3] = {};

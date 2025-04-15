@@ -1,0 +1,31 @@
+adm_re - /re /reoff
+adm_veh - /veh /delveh
+adm_freeze - /freeze /unfreeze
+AdmBan - int - 10 sec - /ban /banoff /sban
+
+FBIkey - int - /givepass /takepass 
+
+mafia_tie - /tie /untie
+mafia_gag - /gag /ungag
+
+HaveDialog - int - 
+IsHolding - int - 
+UsingDrugs - int - 30 sec - /usedrugs
+
+rentcar
+healing
+offer
+
+
+что могут предложить игроку
+1. вступить в орг
+2. вступить в фам
+3. торговать
+4. починиться
+5. вылечиться
+6. сменить пол
+7. вылечиться от наркозависимости
+8. показать документы (5)
+9. адвокат
+10. поздароваться
+11. дать скин
